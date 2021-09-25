@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 0 20px;
+   background:black;
+ 
+}
+
+.container {
+  border: 2px solid maroon;
+  background-color: yellow;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
+}
+.
+
+
+</style>
+</head>
+<body>
+
+
+    <br><br><br>
+  <h1><marquee style="color:white; ">Welcome to SS Social Site</marquee></h1>
+   <br><br><br>
+<div align="center">
+    
+    
+   
+    <h1>SS Mini Discord grp Chat</h1>
+</div>
+
+
+<div class="container">
+    <style>
+    label
+    {
+      font-size:16px;  
+      color:black;  
+      font-family:arial; 
+
+    }
+     
+    input[type=text], select {
+    width: 100%;
+    color:red;
+    font-size:15px;
+    padding: 12px 20px;
+    margin: 10px 0px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    }
+
+    input[type=submit] {
+    width: 100%;
+    background-color: blue;
+    color: white;
+    padding: 14px 14px;
+    margin: 8px 0px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+    background-color: red;
+    }
+
+    div {
+      margin-top:30%;
+    border-radius: 10px;
+    border-color:pink;
+    background-color: grey;
+    padding: 20px;
+    color:blue;
+    font-size:18px;
+    }
+    form 
+    {
+      display:inline-block;
+    }
+    </style>
+
+    <form id="post-form" method="POST" action="checkview">
+        {% csrf_token %}
+        <label>Group(NOTE: only can chat in existing grps)</label>
+        <input type="text" name="room_name" id="room_name" width="80px" placeholder="Group" />
+        <label>discord username</label>
+        <input type="text" name="username" id="username" width="80px" placeholder="Username" />
+        <label>add something about you(optional)</label>
+        <input type="text" name="usernamex" id="usernamex" width="80px"  placeholder="add something"/>
+        <input type="submit" value="Enter group">
+    </form>
+    <br><br><br>
+    </div>
+
+    <div align="center">
+    <h1>SS Mini Discord new grp</h1>
+</div>
+<div class="container">
+    <form id="post-form" method="POST" action="mynewroom">
+        {% csrf_token %}
+        <label>Group(NOTE: only gpr will be created here )</label>
+        <input type="text" name="room_name" id="room_name" width="80px" placeholder="Group" />
+        <label>discord username</label>
+        <input type="text" name="username" id="username" width="80px" placeholder="Username" />
+        <label>add something about you(optional)</label>
+        <input type="text" name="usernamex" id="usernamex" width="80px"  placeholder="add something"/>
+        <input style="background:maroon;" type="submit" value="new group">
+    </form>
+</div>
+</body>
+
+
+</html>
