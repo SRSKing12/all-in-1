@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+
+</head>
+
+<body>
+    <div class="container">
+        <form action="sin" method="POST">
+            {% csrf_token %}
+            <div class="us-name">
+                <input type="text" name="username" class="us-input" value="" placeholder="Username">
+            </div>
+
+            <div class="pass">
+                <input type="password" name="password" class="pass-input" value="" placeholder="Password">
+            </div>
+
+            <div class="lgin">
+                <button type="submit" name="button" class="login-btn">Login</button>
+              </div>
+        </form>
+
+        <div class="reg">
+            <div class="text">
+                Don't have an account? <a href="register" class="sgup">Sign Up</a>
+            </div>
+            <div class="fgt-pass">
+                <a href="" target="_blank">Forgot your password?</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

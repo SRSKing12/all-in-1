@@ -1,15 +1,20 @@
 
 from django.shortcuts import render, redirect
+# from django.views.generic.detail import T
 from .models import Group, Message,Userinfo
 from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
 from .models import CreateTodo
+from django.contrib.auth import logout, login
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
+from django_email_verification import send_email
+from .models import Userinfo
+from .forms import createUserForm, UserinfoForm
 
 # Create your views here.
 def home(request):
     return render(request,'page.html')
-
-
 
 def room(request, room):
     username = request.GET.get('username')
@@ -77,3 +82,69 @@ def deleteTodo(request, pk):
     todo = CreateTodo.objects.get(id=pk)
     todo.delete()
     return redirect('/kk')
+
+# Sign In & Sign out
+def sout(request):
+    logout(request)
+    return render(request, 'index.html')
+
+def sgin(request):
+    if request.method == "POST":
+        # check if user has entered correct credientials
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            # A backend authenticated the credentials
+            if user.is_active == True:
+                login(request, user)
+                return redirect("sginpg")
+        else:
+            # No backend authenticated the credentials
+            return render(request, 'sgin.html')
+
+    return render(request, 'sgin.html')
+
+def sginpg(request):
+    return render(request, 'sginpg.html')
+
+# def regst(request):
+#     if request.method == "POST":
+#         name = request.POST.get('fname')
+#         phone = request.POST.get('phnum')
+#         email = request.POST.get('email')
+#         state = request.POST.get('state')
+#         addr = request.POST.get('address')
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#         u = User.objects.create_user(username=username, email=email, password=password, first_name=name)
+#         u.is_active = False 
+#         u.save()
+#         send_email(u)
+#         usr = Userinfo(full_Name=name, phone=phone, email=email, state=state, address=addr, username=username)
+#         usr.save()
+#         return render(request, 'email_sent.html')
+
+#     return render(request, 'register.html')
+
+def email_sent(request):
+    return render(request, 'email_sent.html')
+
+def regst(request):
+    if request.method == 'POST':
+        form = createUserForm(request.POST)
+        profile_form = UserinfoForm(request.POST)
+        if form.is_valid() and profile_form.is_valid():
+            user = form.save()
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.save()
+            send_email(user)
+            messages.success(request,  'Your account has been successfully created!')
+            return redirect("email_sent")
+    else:
+        form = createUserForm()
+        profile_form = UserinfoForm()
+
+    context = {'form': form, 'profile_form': profile_form}
+    return render(request, 'register.html', context)

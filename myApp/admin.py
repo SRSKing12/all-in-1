@@ -6,7 +6,7 @@ admin.site.register(Message)
 
 @admin.register(Userinfo)
 class UserDisp(admin.ModelAdmin):
-    list_display=['id','user','name','locality','city','zipcode','state']
+    list_display=['id', 'full_Name', 'phone','state', 'date']
 
 
 from .models import CreateTodo

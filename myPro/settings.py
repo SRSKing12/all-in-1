@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +31,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_email_verification',
     'myApp',
 ]
 
@@ -134,9 +138,38 @@ MEDIA_DIR = BASE_DIR / 'media'
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 
-import dj_database_url
-from django.contrib.messages import constants as messages
-MESSAGE_TAGS = {
-    messages.ERROR: 'danger'
-}
+# Forgot Password
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ss.blognchat@gmail.com'
+EMAIL_HOST_PASSWORD = 'dgzarwwiaprflxzs'
 
+# Email verification
+# EMAIL_ACTIVE_FIELD = 'is_active'
+# EMAIL_SERVER = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_ADDRESS = 'ss.blognchat@gmail.com'
+# EMAIL_FROM_ADDRESS = 'ss.blognchat@gmail.com'
+# EMAIL_PASSWORD = 'dgzarwwiaprflxzs'
+# EMAIL_MAIL_SUBJECT = 'VERIFY YOUR EMAIL'
+# EMAIL_MAIL_HTML = 'mail_body.html'
+# EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
+# EMAIL_PAGE_DOMAIN = 'http://'
+
+# Email Verify
+def verified_callback(user):
+    user.is_active = True
+
+EMAIL_VERIFIED_CALLBACK = verified_callback
+EMAIL_FROM_ADDRESS = 'ss.blognchat@gmail.com'
+EMAIL_MAIL_SUBJECT = 'Verify your email'
+EMAIL_MAIL_HTML = 'mail_body.html'
+EMAIL_MAIL_PLAIN = 'mail_body.txt'
+EMAIL_TOKEN_LIFE = 60 * 60
+EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
+EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
+
+
+APPEND_SLASH=False
