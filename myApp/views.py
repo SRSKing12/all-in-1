@@ -1,6 +1,5 @@
 
 from django.shortcuts import render, redirect
-# from django.views.generic.detail import T
 from .models import Group, Message,Userinfo
 from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
@@ -11,11 +10,36 @@ from django.contrib.auth.models import User
 from django_email_verification import send_email
 from .models import Userinfo
 from .forms import createUserForm, UserinfoForm
+from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
+from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
-def home(request):
+def index(request):
+    if request.method == 'POST':
+        fname = request.POST.get('fname')
+        usr_eml = request.POST.get('email')
+        phone = request.POST.get('phnum')
+        message = request.POST['msg']
+        # send_mail(subject, message, from-email, receiver, fail silently)
+        send_mail(fname,
+                    "User Phone:-  "+phone+"\n"+"User Email:- "+usr_eml+"\n"+message,
+                    "ss.blognchat@gmail.com",
+                    ['ss.blognchat@gmail.com'],
+                    fail_silently=True)
+        messages.success(request, 'Thank you for the message! We\'ll respond to you shortly!!')    
+
+
+    return render(request, 'index.html')
+
+@login_required(login_url='/sin')
+def chat(request):
     return render(request,'page.html')
 
+@login_required(login_url='/sin')
 def room(request, room):
     username = request.GET.get('username')
     room_details = Group.objects.get(name=room)
@@ -25,6 +49,7 @@ def room(request, room):
         'room_details': room_details
     })
 
+@login_required(login_url='/sin')
 def checkview(request):
     room = request.POST['room_name']
     username = request.POST['username']
@@ -38,6 +63,7 @@ def checkview(request):
         #new_room.save()
         #return redirect('/'+room+'/?username='+username)
 
+@login_required(login_url='/sin')
 def mynewroom(request):
     room = request.POST['room_name']
     username = request.POST['username']
@@ -50,7 +76,7 @@ def mynewroom(request):
         messages.success(request, '...Creating new group!!')
         return redirect('/'+room+'/?username='+username)
  
-
+@login_required(login_url='/sin')
 def send(request):
     message = request.POST['message']
     username = request.POST['username']
@@ -59,6 +85,7 @@ def send(request):
     new_message.save()
     return HttpResponse('Message has been sent successfully')
 
+@login_required(login_url='/sin')
 def getMessages(request, room):
     room_details = Group.objects.get(name=room)
     messages = Message.objects.filter(room=room_details.id)
@@ -66,23 +93,6 @@ def getMessages(request, room):
 
 
 # Create your views here.
-def index(request):
-    todo = CreateTodo.objects.all()
-    if request.method == 'POST':
-        new_todo = CreateTodo(
-            title = request.POST['title'], 
-            descr = request.POST['descr'],
-        )
-        new_todo.save()
-        return redirect('/kk')
-
-    return render(request, 'index.html', {'todos': todo})
-
-def deleteTodo(request, pk):
-    todo = CreateTodo.objects.get(id=pk)
-    todo.delete()
-    return redirect('/kk')
-
 # Sign In & Sign out
 def sout(request):
     logout(request)
@@ -98,34 +108,12 @@ def sgin(request):
             # A backend authenticated the credentials
             if user.is_active == True:
                 login(request, user)
-                return redirect("sginpg")
+                return redirect("index")
         else:
             # No backend authenticated the credentials
             return render(request, 'sgin.html')
 
     return render(request, 'sgin.html')
-
-def sginpg(request):
-    return render(request, 'sginpg.html')
-
-# def regst(request):
-#     if request.method == "POST":
-#         name = request.POST.get('fname')
-#         phone = request.POST.get('phnum')
-#         email = request.POST.get('email')
-#         state = request.POST.get('state')
-#         addr = request.POST.get('address')
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-#         u = User.objects.create_user(username=username, email=email, password=password, first_name=name)
-#         u.is_active = False 
-#         u.save()
-#         send_email(u)
-#         usr = Userinfo(full_Name=name, phone=phone, email=email, state=state, address=addr, username=username)
-#         usr.save()
-#         return render(request, 'email_sent.html')
-
-#     return render(request, 'register.html')
 
 def email_sent(request):
     return render(request, 'email_sent.html')
@@ -148,3 +136,44 @@ def regst(request):
 
     context = {'form': form, 'profile_form': profile_form}
     return render(request, 'register.html', context)
+
+@login_required(login_url='/sin')
+def blog(request):
+    return render(request, 'blog.html')
+
+class TaskList(LoginRequiredMixin, ListView):
+    model = CreateTodo
+    context_object_name = 'task_list'
+    template_name = 'task_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['task_list'] = context['task_list'].filter(user=self.request.user)
+        context['count'] = context['task_list'].filter(complete=False).count()
+        return context
+
+class TaskCreate(LoginRequiredMixin, CreateView):
+    model = CreateTodo
+    fields = ['title', 'descr', 'complete']
+    success_url = reverse_lazy('tasks')
+    template_name = 'task_create.html'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(TaskCreate, self).form_valid(form)
+
+class TaskUpdate(LoginRequiredMixin, UpdateView):
+    model = CreateTodo
+    fields = ['title', 'descr', 'complete']
+    success_url = reverse_lazy('tasks')
+    template_name = 'task_update.html'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(TaskUpdate, self).form_valid(form)
+
+class TaskDelete(LoginRequiredMixin, DeleteView):
+    model = CreateTodo
+    context_object_name = 'task'
+    success_url = reverse_lazy('tasks')
+    template_name = 'task_delete.html'

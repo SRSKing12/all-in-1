@@ -173,3 +173,5 @@ EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
 
 
 APPEND_SLASH=False
+
+LOGIN_URL = 'sin'

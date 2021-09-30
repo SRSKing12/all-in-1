@@ -45,8 +45,10 @@ class Userinfo(models.Model):
 
 
 class CreateTodo(models.Model):
-    title=models.CharField(max_length=200)
-    descr=models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    title= models.CharField(max_length=200)
+    descr= models.TextField()
+    complete = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

@@ -1,0 +1,16 @@
+{% extends 'create_todo.html' %}
+{% block content %}
+
+    <div class="header-bar">
+        <a href="{%url 'tasks' %}">&larr; Back</a>
+    </div>
+
+    <div class="card-body">
+        <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="btn" type="submit" value="Update">
+        </form>
+    </div>
+
+{% endblock content %}
