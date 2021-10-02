@@ -5,7 +5,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
 from .models import CreateTodo
 from django.contrib.auth import logout, login
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, update_session_auth_hash
 from django.contrib.auth.models import User
 from django_email_verification import send_email
 from .models import Userinfo
@@ -16,6 +16,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import PasswordChangeForm
 
 # Create your views here.
 def index(request):
@@ -128,7 +129,6 @@ def regst(request):
             profile.user = user
             profile.save()
             send_email(user)
-            messages.success(request,  'Your account has been successfully created!')
             return redirect("email_sent")
     else:
         form = createUserForm()
@@ -137,9 +137,22 @@ def regst(request):
     context = {'form': form, 'profile_form': profile_form}
     return render(request, 'register.html', context)
 
-@login_required(login_url='/sin')
 def blog(request):
     return render(request, 'blog.html')
+
+@login_required(login_url='/sin')
+def change_pass(request):
+    if request.method == 'POST':
+        fm = PasswordChangeForm(user=request.user, data=request.POST)
+        if fm.is_valid():
+            fm.save()
+            messages.success(request, 'Password changed successfully!')    
+            update_session_auth_hash(request, fm.user)
+            return redirect("index")
+    else:
+        fm = PasswordChangeForm(user = request.user)
+            
+    return render(request, 'change_pass.html', {'form':fm})
 
 class TaskList(LoginRequiredMixin, ListView):
     model = CreateTodo

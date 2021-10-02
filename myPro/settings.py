@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_email_verification',
     'myApp',
+    'django_email_verification',
 ]
 
 MIDDLEWARE = [
