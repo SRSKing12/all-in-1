@@ -10,6 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import django_heroku
+import os
+
 from pathlib import Path
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
@@ -110,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -124,8 +127,9 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static"
+    os.path.join(BASE_DIR, "static")
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -134,9 +138,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #media is going to be managed by following
 
-MEDIA_DIR = BASE_DIR / 'media'
-MEDIA_ROOT = MEDIA_DIR
-MEDIA_URL = '/media/'
+# MEDIA_DIR = BASE_DIR / 'media'
+# MEDIA_ROOT = MEDIA_DIR
+# MEDIA_URL = '/media/'
 
 # Forgot Password
 EMAIL_USE_TLS = True
@@ -175,3 +179,5 @@ EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
 APPEND_SLASH=False
 
 LOGIN_URL = 'sin'
+
+django_heroku.settings(locals())
