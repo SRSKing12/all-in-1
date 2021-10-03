@@ -1,20 +1,12 @@
 <!DOCTYPE html>
-{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
-<<<<<<< HEAD
     
     <link rel="stylesheet" href="static/css/bootstrap.css">
-=======
-    <script src="{% static 'enroll/js/jquery.js' %}" ></script>
-     <script src="{% static 'enroll/js/popper.js' %}" ></script>
-     <script src="{% static 'enroll/js/bootstrap.js' %}" ></script>
-      <link rel="stylesheet" href=" {% static 'enroll/css/bootstrap.css' %}">
->>>>>>> main
 
 <style>
    .bg-image-vertical {
@@ -37,41 +29,24 @@
 <body>
      
 
-<<<<<<< HEAD
 <div class="container mt-5 m-lg-3" >
  <div class="row my-3" >
   <div class="col-sm-7 offset-sm-3"   >
    <h3 class="text-center alert alert-success">Sign In</h3>
-=======
-       <div class="container mt-5 m-lg-3" >
- <div class="row my-3" >
-  <div class="col-sm-7 offset-sm-3"   >
-   <h3 class="text-center alert alert-success">Add New User</h3>
->>>>>>> main
    <hr>
 
        <form action="sin" method="POST" novalidate class="shadow p-4" style="border:2px solid grey" >
             {% csrf_token %}
             <div class="us-name">
-<<<<<<< HEAD
                  Username:<br><br>
-=======
-                 Username<br><br>
->>>>>>> main
                 <input type="text" name="username" class="form-control"  value="" placeholder="Username">
                 <br><br>
             </div>
 
             <div class="pass">
-<<<<<<< HEAD
                Password:<br><br>
                 <input type="password"  name="password" class="form-control"  value="" placeholder="Password">
                 
-=======
-               Password<br><br>
-                <input type="password"  name="password" class="form-control"  value="" placeholder="Password">
-                <br><br>
->>>>>>> main
             </div>
 
             <div class="lgin">
@@ -79,22 +54,11 @@
                 <button type="submit" name="button" class="btn btn-success">Login</button>
               </div>
 
-<<<<<<< HEAD
               <div class="text">
-=======
-
-        </div>
-        </div>
-        </div>
-  
-
-        <div class="reg">
-            <div class="text">
->>>>>>> main
                 Don't have an account? <a href="register" class="sgup">Sign Up</a>
             </div>
             <div class="fgt-pass">
-                <a href="" target="_blank">Forgot your password?</a>
+                <a href="password_reset">Forgot your password?</a>
             </div>
         </form>
 
@@ -102,13 +66,8 @@
 
         </div>
         </div>
-<<<<<<< HEAD
         </div>
   
-=======
-
-
->>>>>>> main
     </div>
 
     <script src="static/js/jquery.js"></script>
