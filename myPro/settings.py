@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-ck7@ie83q*za(-1_2h+-#7gey^t@c5^-abryk3ut5#^!vj&mi3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'ss-blognchat.herokuapp.com', 'localhost']
 
 # Application definition
 
@@ -173,8 +173,7 @@ EMAIL_MAIL_HTML = 'mail_body.html'
 EMAIL_MAIL_PLAIN = 'mail_body.txt'
 EMAIL_TOKEN_LIFE = 60 * 60
 EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
-EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
-
+EMAIL_PAGE_DOMAIN = 'https://ss-blognchat.herokuapp.com'
 
 APPEND_SLASH=False
 
