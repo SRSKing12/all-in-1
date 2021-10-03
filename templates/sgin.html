@@ -5,35 +5,74 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
+    
+    <link rel="stylesheet" href="static/css/bootstrap.css">
 
+<style>
+   .bg-image-vertical {
+  position: relative;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: auto 100%;
+}
+
+@media (min-width: 1025px) {
+  .h-custom-2 {
+    height: 100%;
+  }
+}
+
+</style>
 </head>
 
 <body>
-    <div class="container">
-        <form action="sin" method="POST">
+     
+
+<div class="container mt-5 m-lg-3" >
+ <div class="row my-3" >
+  <div class="col-sm-7 offset-sm-3"   >
+   <h3 class="text-center alert alert-success">Sign In</h3>
+   <hr>
+
+       <form action="sin" method="POST" novalidate class="shadow p-4" style="border:2px solid grey" >
             {% csrf_token %}
             <div class="us-name">
-                <input type="text" name="username" class="us-input" value="" placeholder="Username">
+                 Username:<br><br>
+                <input type="text" name="username" class="form-control"  value="" placeholder="Username">
+                <br><br>
             </div>
 
             <div class="pass">
-                <input type="password" name="password" class="pass-input" value="" placeholder="Password">
+               Password:<br><br>
+                <input type="password"  name="password" class="form-control"  value="" placeholder="Password">
+                
             </div>
 
             <div class="lgin">
-                <button type="submit" name="button" class="login-btn">Login</button>
+                  <br><br>
+                <button type="submit" name="button" class="btn btn-success">Login</button>
               </div>
-        </form>
 
-        <div class="reg">
-            <div class="text">
+              <div class="text">
                 Don't have an account? <a href="register" class="sgup">Sign Up</a>
             </div>
             <div class="fgt-pass">
                 <a href="password_reset">Forgot your password?</a>
             </div>
+        </form>
+
+        
+
         </div>
+        </div>
+        </div>
+  
     </div>
+
+    <script src="static/js/jquery.js"></script>
+    <script src="static/js/popper.js"></script>
+    <script src="static/js/bootstrap.js"></script>
 
 </body>
 </html>

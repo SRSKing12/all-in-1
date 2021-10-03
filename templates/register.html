@@ -5,83 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <link rel="stylesheet" href="static/css/bootstrap.css">
+
 </head>
 <body>
-    <!-- <form action="register" method="POST">
-    {% csrf_token %}
-        <div class="fname">
-            <p>Full Name</p>
-            <input type="text" placeholder="Enter Full Name" name="fname" required>
-        </div>
-        <div class="phnum">
-            <p>Phone number</p>
-            <input type="text" placeholder="Enter Phone Number" name="phnum" required>
-        </div>
-        <div class="email">
-            <p>Email Address</p>
-            <input type="email" placeholder="Enter your email" name="email" required>
-        </div>
-        <div class="state">
-            <p>State</p>
-            <input type="text" placeholder="Enter State Name" name="state" required>
-        </div>
-        <div class="addr">
-            <p>Address</p>
-            <input type="text" placeholder="Enter address" name="address" required>
-        </div>
-        <div class="usname">
-            <p>Username</p>
-            <input type="text" placeholder="Enter Username" name="username" required>
-        </div>
-        <div class="pass">
-            <p>Password</p>
-            <input type="password" placeholder="Enter Password" name="password" required>
-        </div>
-        <div class="sbmt">
-            <button type="submit">Register</button>
-        </div>
-    </form> -->
 
-    <form method="POST" action="register">
+<div class="container mt-5" >
+ <div class="row my-3" >
+  <div class="col-sm-7 offset-sm-3"   >
+   <h3 class="text-center alert alert-info">Register with us</h3>
+
+   <hr>
+
+    <form method="POST" action="register" novalidate class="shadow p-5" style="border:2px solid grey">
         {% csrf_token %}
-            <h3>Register Profile</h3>
-            
-
-            <!-- <div class="form-field">
-                {{profile_form.name.label_tag}}
-                {{profile_form.name}}
-            </div>
-            <div class="form-field">
-                {{form.username.errors}}
-                {{form.username.label_tag}}
-                {{form.username}}
-            </div>
-            <div class="form-field">
-                {{profile_form.email.label_tag}}
-                {{profile_form.email}}
-            </div>
-            <div class="form-field">
-                {{profile_form.address.label_tag}}
-                {{profile_form.address}}
-            </div>
-            <div class="form-field">
-                {{form.password1.errors}}
-                {{form.password1.label_tag}} 
-                {{form.password1}}
-            </div>
-            <div class="form-field">
-                {{form.password2.errors}}
-                <{{form.password2.label_tag}} 
-                {{form.password2}}
-            </div> -->
+            <h3></h3>
             {{form.as_p}}
             {{profile_form.as_p}}
-
         <hr>
         <input id="form-button" class="btn btn-success btn-block" type="submit" value="Create Profile">
         <br>
             {{form.non_field_errors}}
     </form>
+
+    </div>
+    </div>
+
+    <script src="static/js/jquery.js"></script>
+    <script src="static/js/popper.js"></script>
+    <script src="static/js/bootstrap.js"></script>
     
 </body>
 </html>
