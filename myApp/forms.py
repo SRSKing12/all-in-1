@@ -29,7 +29,7 @@ class createUserForm(UserCreationForm):
         return user
 
 class UserinfoForm(forms.ModelForm):
-    full_Name=forms.CharField(label='Full_name',widget=forms.TextInput(attrs={'class':'form-control'}))
+    full_Name=forms.CharField(label='Full Name',widget=forms.TextInput(attrs={'class':'form-control'}))
     class Meta:
         model = Userinfo
         fields = ['full_Name', 'phone', 'state', 'address']
