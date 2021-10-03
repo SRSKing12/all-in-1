@@ -6,7 +6,11 @@ from django.db import transaction
 
 class createUserForm(UserCreationForm):
     email = forms.EmailField(required=True,label="Email",widget=forms.EmailInput(attrs={'class':'form-control'}))
+<<<<<<< HEAD
     username=forms.CharField(label='Username',widget=forms.TextInput(attrs={'class':'form-control'}))
+=======
+    username=forms.CharField(label='UserName',widget=forms.TextInput(attrs={'class':'form-control'}))
+>>>>>>> main
     password1=forms.CharField(label='Password',widget=forms.PasswordInput(attrs={'class':'form-control'}))
     password2=forms.CharField(label='Confirm Password',widget=forms.PasswordInput(attrs={'class':'form-control'}))
 
@@ -29,7 +33,11 @@ class createUserForm(UserCreationForm):
         return user
 
 class UserinfoForm(forms.ModelForm):
+<<<<<<< HEAD
     full_Name=forms.CharField(label='Full Name',widget=forms.TextInput(attrs={'class':'form-control'}))
+=======
+    full_Name=forms.CharField(label='Full_name',widget=forms.TextInput(attrs={'class':'form-control'}))
+>>>>>>> main
     class Meta:
         model = Userinfo
         fields = ['full_Name', 'phone', 'state', 'address']
