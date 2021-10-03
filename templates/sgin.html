@@ -24,6 +24,7 @@
 }
 
 </style>
+
 </head>
 
 <body>
@@ -34,6 +35,13 @@
   <div class="col-sm-7 offset-sm-3"   >
    <h3 class="text-center alert alert-success">Sign In</h3>
    <hr>
+
+   {% for message in messages %}
+    <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+        <strong>ERROR: </strong> {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
 
        <form action="sin" method="POST" novalidate class="shadow p-4" style="border:2px solid grey" >
             {% csrf_token %}
