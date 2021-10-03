@@ -55,10 +55,9 @@ def checkview(request):
     room = request.POST['room_name']
     username = request.POST['username']
     if Group.objects.filter(name=room).exists():
-        messages.success(request, '...grp found!!')
         return redirect('/'+room+'/?username='+username)
     else:
-        messages.success(request, '...No such grp found!!')
+        messages.error(request, '...No such grp found!!')
         return render(request, 'page.html')
         #new_room = Room.objects.create(name=room)
         #new_room.save()
