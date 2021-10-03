@@ -109,8 +109,12 @@ def sgin(request):
             if user.is_active == True:
                 login(request, user)
                 return redirect("index")
+            else:
+                messages.error(request, 'Verify your email to log in !!')    
+
         else:
             # No backend authenticated the credentials
+            messages.error(request, 'Invalid username or password!')    
             return render(request, 'sgin.html')
 
     return render(request, 'sgin.html')
