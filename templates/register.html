@@ -1,12 +1,19 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <link rel="stylesheet" href=" {% static 'enroll/css/bootstrap.css' %}">
+
 </head>
 <body>
+     <script src="{% static 'enroll/js/jquery.js' %}" ></script>
+     <script src="{% static 'enroll/js/popper.js' %}" ></script>
+     <script src="{% static 'enroll/js/bootstrap.js' %}" ></script>
+
     <!-- <form action="register" method="POST">
     {% csrf_token %}
         <div class="fname">
@@ -41,10 +48,15 @@
             <button type="submit">Register</button>
         </div>
     </form> -->
+<div class="container mt-5" >
+ <div class="row my-3" >
+  <div class="col-sm-7 offset-sm-3"   >
+   <h3 class="text-center alert alert-info">Add New User</h3>
+   <hr>
 
-    <form method="POST" action="register">
+    <form method="POST" action="register" novalidate class="shadow p-5" style="border:2px solid grey">
         {% csrf_token %}
-            <h3>Register Profile</h3>
+            <h3></h3>
             
 
             <!-- <div class="form-field">
@@ -82,6 +94,8 @@
         <br>
             {{form.non_field_errors}}
     </form>
+    </div>
+    </div>
     
 </body>
 </html>
