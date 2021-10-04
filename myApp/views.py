@@ -42,7 +42,7 @@ def chat(request):
 
 @login_required(login_url='/sin')
 def room(request, room):
-    username = request.GET.get('username')
+    username = request.user.username
     room_details = Group.objects.get(name=room)
     return render(request, 'group.html', {
         'username': username,
@@ -53,11 +53,11 @@ def room(request, room):
 @login_required(login_url='/sin')
 def checkview(request):
     room = request.POST['room_name']
-    username = request.POST['username']
+    username = request.user.username
     if Group.objects.filter(name=room).exists():
         return redirect('/'+room+'/?username='+username)
     else:
-        messages.error(request, '...No such grp found!!')
+        messages.error(request, 'No such grp found!!')
         return render(request, 'page.html')
         #new_room = Room.objects.create(name=room)
         #new_room.save()
@@ -66,20 +66,19 @@ def checkview(request):
 @login_required(login_url='/sin')
 def mynewroom(request):
     room = request.POST['room_name']
-    username = request.POST['username']
+    username = request.user.username
     if Group.objects.filter(name=room).exists():
-        messages.success(request, '...Already grp existing by this name...plz select another name for grp!!')
+        messages.error(request, 'Already a group exists by this name. Please choose another name!!')
         return render(request, 'page.html')
     else:
         new_room=Group.objects.create(name=room)
         new_room.save()
-        messages.success(request, '...Creating new group!!')
         return redirect('/'+room+'/?username='+username)
  
 @login_required(login_url='/sin')
 def send(request):
     message = request.POST['message']
-    username = request.POST['username']
+    username = request.user.username
     room_id = request.POST['room_id']
     new_message = Message.objects.create(value=message, user=username, room=room_id)
     new_message.save()
