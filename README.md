@@ -1,2 +1,2 @@
 # all-in-1
-Basic Chat and blog application
+Basic Chat and task manager application
